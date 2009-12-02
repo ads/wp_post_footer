@@ -3,13 +3,25 @@
 $parent_file = 'edit.php';
 $editing = true;
 add_thickbox(); 
-$post = get_default_post_to_edit();
 $temp_ID = -1 * time(); // don't change this formula without looking at wp_write_post()
 $form_extra = "<input type='hidden' id='post_ID' name='temp_ID' value='" . esc_attr($temp_ID) . "' />";
-require_once('includes/meta-boxes.php');
-add_meta_box('submitdiv', __('Publish'), 'post_submit_meta_box', 'post', 'side', 'core');
 $screen_layout_columns = 2;
 if (function_exists('wp_tiny_mce')) wp_tiny_mce();
+$post = get_default_post_to_edit();
+$post->post_type = 'post-footer';
+
+
+if ( !empty($_POST ) ) :
+	check_admin_referer('add-post-footer');
+	$posta = array(
+		'post_title' => $_POST['post_title'],
+		'post_content' => $_POST['content'],
+		'post_status' => 'publish', 
+		'post_type' => $_POST['post_type'],
+		'ping_status' => 'closed',
+	);
+	wp_insert_post($posta);
+endif;
 ?>
 <div class="wrap">
 	<div id="icon-edit" class="icon32"></div>
@@ -83,14 +95,5 @@ if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 try{document.post.title.focus();}catch(e){}
 </script>
 <?php endif; ?>
-
-<script type="text/javascript" charset="utf-8">
-	jQuery(document).ready(function($) {
-		$('.thickbox').each(function() {
-			newhref = '<?php echo WP_SITEURL.'/wp-admin/'; ?>'+$(this).attr('href');
-			$(this).attr('href',newhref);
-		});
-	});
-</script>
 
 <!-- end add-wp-post-footer.php -->
