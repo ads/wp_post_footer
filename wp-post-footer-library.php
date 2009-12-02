@@ -6,8 +6,10 @@ $args = array(
 );
 
 $posts = get_posts($args);
-//print_r($posts);
+if (isset($_GET['pfmsg'])):
 ?>
+<div id="message" class="updated fade"><p>Post Footer snippet deleted.</p></div>
+<?php endif; ?>
 <div class="wrap">
 	<div id="icon-edit" class="icon32"></div>
 	<h2>Post Footer Library <a class="button add-new-h2" href="edit.php?page=wp-post-footer/add-wp-post-footer.php">Add New</a></h2>
@@ -19,6 +21,7 @@ $posts = get_posts($args);
 				<th scope="col" id="title" class="manage-column column-title" style="">Post</th>
 				<th scope="col" id="author" class="manage-column column-author" style="">Author</th>
 				<th scope="col" id="date" class="manage-column column-date" style="">Date</th>
+				<th scope="col"  class="manage-column column-date" style="">Remove?</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -26,6 +29,7 @@ $posts = get_posts($args);
 				<th scope="col"  class="manage-column column-title" style="">Post</th>
 				<th scope="col"  class="manage-column column-author" style="">Author</th>
 				<th scope="col"  class="manage-column column-date" style="">Date</th>
+				<th scope="col"  class="manage-column column-date" style="">Remove?</th>
 			</tr>
 		</tfoot>
 		
@@ -56,8 +60,21 @@ $posts = get_posts($args);
 						echo '<abbr title="' . $t_time . '">' . apply_filters('post_date_column_time', $h_time, $post, 'date', 'list') . '</abbr>';
 					?>
 				</td>
+				<td>
+					<a href="edit.php?page=<?php echo end(explode('/',dirname(__FILE__))); ?>/delete-wp-post-footer.php&amp;ID=<?php echo $post->ID; ?>" class="delmsg">Delete</a>
+				</td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>
 	</table>
 </div>
+<script type="text/javascript" charset="utf-8">
+	jQuery(document).ready(function($) {
+		$('.delmsg').click(function() {
+			ok = confirm("Are you sure you want to delete this Post Footer snippet?");
+			if (!ok) {
+				return false;
+			}
+		});
+	})
+</script>
