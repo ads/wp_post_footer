@@ -26,13 +26,6 @@ if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 		<input name="referredby" type="hidden" id="referredby" value="<?php echo esc_url(stripslashes(wp_get_referer())); ?>" />
 		<?php echo $form_extra; ?>
 
-		<?php 
-			do_action('do_meta_boxes', 'post', 'normal', $post);
-			do_action('do_meta_boxes', 'post', 'advanced', $post);
-			do_action('do_meta_boxes', 'post', 'side', $post);
-		?>
-
-
 		<div id="poststuff" class="metabox-holder<?php echo 2 == $screen_layout_columns ? ' has-right-sidebar' : ''; ?>">
 			<div id="side-info-column" class="inner-sidebar">
 				<div id="side-sortables" class="meta-box-sortables">
@@ -72,30 +65,10 @@ if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 							<tbody>
 								<tr>
 									<td id="wp-word-count"></td>
-									<td class="autosave-info">
-										<span id="autosave">&nbsp;</span>
-										<?php
-											if ( $post_ID ) {
-												echo '<span id="last-edit">';
-												if ( $last_id = get_post_meta($post_ID, '_edit_last', true) ) {
-													$last_user = get_userdata($last_id);
-													printf(__('Last edited by %1$s on %2$s at %3$s'), esc_html( $last_user->display_name ), mysql2date(get_option('date_format'), $post->post_modified), mysql2date(get_option('time_format'), $post->post_modified));
-												} else {
-													printf(__('Last edited on %1$s at %2$s'), mysql2date(get_option('date_format'), $post->post_modified), mysql2date(get_option('time_format'), $post->post_modified));
-												}
-												echo '</span>';
-											} ?>
-									</td>
+									<td class="autosave-info">&nbsp;</td>
 								</tr>
 							</tbody>
 						</table>
-						<?php
-							wp_nonce_field( 'autosave', 'autosavenonce', false );
-							wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
-							wp_nonce_field( 'getpermalink', 'getpermalinknonce', false );
-							wp_nonce_field( 'samplepermalink', 'samplepermalinknonce', false );
-							wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
-						?>
 					</div> <!-- #postdivrich -->
 
 				</div> <!-- #post-body-content -->

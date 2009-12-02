@@ -37,7 +37,7 @@ function post_footer_menus()
 function post_footer_scripts($hook)
 {
 	if ($hook == 'wp-post-footer/add-wp-post-footer.php'):
-		$handles = explode(',','autosave,post,editor,media-upload,word-count,thickbox');
+		$handles = explode(',','post,editor,media-upload,word-count,thickbox');
 
 		foreach($handles as $handle):
 			wp_enqueue_script( $handle );
