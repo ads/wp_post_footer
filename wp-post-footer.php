@@ -24,11 +24,25 @@
 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-add_action('admin_menu', 'post_footer_menus');
+add_action('admin_menu', 'post_footer_menus', 10, 1);
+add_action('admin_enqueue_scripts', 'post_footer_scripts', 10, 1);
+
 function post_footer_menus()
 {
 	add_posts_page('Add New Post Footer', 'Add New Post Footer', 'edit_others_posts', dirname(__FILE__) . '/add-wp-post-footer.php');
 	add_posts_page('Post Footer Library', 'Post Footer Library', 'edit_others_posts', dirname(__FILE__) . '/wp-post-footer-library.php');
 }
 
+
+function post_footer_scripts($hook)
+{
+	if ($hook == 'wp-post-footer/add-wp-post-footer.php'):
+		$handles = explode(',','autosave,post,editor,media-upload,word-count,thickbox');
+
+		foreach($handles as $handle):
+			wp_enqueue_script( $handle );
+		endforeach;
+		wp_enqueue_style( 'thickbox' );
+	endif;
+}
 ?>
