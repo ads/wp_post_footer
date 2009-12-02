@@ -27,8 +27,8 @@
 add_action('admin_menu', 'post_footer_menus');
 function post_footer_menus()
 {
-	add_posts_page('Add New Post Footer', 'Add New Post Footer', 'editor', dirname(__FILE__) . '/add-wp-post-footer.php');
-	add_posts_page('Post Footer Library', 'Post Footer Library', 'editor', dirname(__FILE__) . '/wp-post-footer-library.php');
+	add_posts_page('Add New Post Footer', 'Add New Post Footer', 'edit_others_posts', dirname(__FILE__) . '/add-wp-post-footer.php');
+	add_posts_page('Post Footer Library', 'Post Footer Library', 'edit_others_posts', dirname(__FILE__) . '/wp-post-footer-library.php');
 }
 
 ?>
