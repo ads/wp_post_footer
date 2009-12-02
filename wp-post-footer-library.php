@@ -34,7 +34,7 @@ $posts = get_posts($args);
 				$userdata = get_userdata($post->post_author);
 			?>
 			<tr>
-				<td class="post-title column-title"><a href="edit-wp-post-footer.php?ID=<?php echo $post->ID; ?>"><?php echo $post->post_title; ?></a></td>
+				<td class="post-title column-title"><a href="edit.php?page=<?php echo end(explode('/',dirname(__FILE__))); ?>/edit-wp-post-footer.php&amp;ID=<?php echo $post->ID; ?>"><?php echo $post->post_title; ?></a></td>
 				<td><a href="edit.php?author=<?php echo $post->post_author; ?>"><?php echo $userdata->user_nicename; ?></a></td>
 				<td>
 					<?php 

@@ -26,13 +26,25 @@
 
 add_action('admin_menu', 'post_footer_menus', 10, 1);
 add_action('admin_enqueue_scripts', 'post_footer_scripts', 10, 1);
+add_action('admin_head', 'post_footer_scrub_menus');
 
 function post_footer_menus()
 {
-	add_posts_page('Add New Post Footer', 'Add New Post Footer', 'edit_others_posts', dirname(__FILE__) . '/add-wp-post-footer.php');
-	add_posts_page('Post Footer Library', 'Post Footer Library', 'edit_others_posts', dirname(__FILE__) . '/wp-post-footer-library.php');
+	add_posts_page('Add New Post Footer', 'Add New Post Footer', 'delete_others_posts', dirname(__FILE__) . '/add-wp-post-footer.php');
+	add_posts_page('Edit Post Footer', 'Edit Post Footer', 'delete_others_posts', dirname(__FILE__) . '/edit-wp-post-footer.php');
+	add_posts_page('Delete Post Footer', 'Delete Post Footer', 'delete_others_posts', dirname(__FILE__) . '/delete-wp-post-footer.php');
+	add_posts_page('Post Footer Library', 'Post Footer Library', 'delete_others_posts', dirname(__FILE__) . '/wp-post-footer-library.php');
 }
 
+function post_footer_scrub_menus()
+{
+	global $submenu;
+	foreach($submenu['edit.php'] as $key => $val):
+		if ($val[2] == 'wp-post-footer/edit-wp-post-footer.php' OR $val[2] == 'wp-post-footer/delete-wp-post-footer.php'):
+			unset($submenu['edit.php'][$key]);
+		endif;
+	endforeach;
+}
 
 function post_footer_scripts($hook)
 {
