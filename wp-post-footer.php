@@ -42,7 +42,7 @@ function post_footer_scrub_menus()
 {
 	global $submenu;
 	foreach($submenu['edit.php'] as $key => $val):
-		if ($val[2] == 'wp-post-footer/edit-wp-post-footer.php' OR $val[2] == 'wp-post-footer/delete-wp-post-footer.php'):
+		if ($val[2] == end(explode('/',dirname(__FILE__))) . '/edit-wp-post-footer.php' OR $val[2] == end(explode('/',dirname(__FILE__))) . '/delete-wp-post-footer.php'):
 			unset($submenu['edit.php'][$key]);
 		endif;
 	endforeach;
@@ -83,7 +83,7 @@ function post_footer_meta_box_content()
 	<input type="hidden" name="wp_post_footer_nonce" id="wp_post_footer_nonce" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
 	<label for="_post_footer_id">Post Footer snippet:</label>
 	<select name="_post_footer_id" id="post_footer_id">
-		<option value="">&hellip;</option>
+		<option value="">Choose&hellip;</option>
 		<?php foreach($snippets as $snippet): 
 			$selected = ($snippet->ID == $_post_footer_id) ? 'selected="selected"' : '';
 		?>
