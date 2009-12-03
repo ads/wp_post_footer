@@ -131,8 +131,17 @@ function wp_post_footer()
 {
 	global $post;
 	$post_footer_id = get_post_meta($post->ID, '_post_footer_id', true);
-	$post_footer = get_post($post_footer_id);
-	echo $post_footer->post_content;
+	if (is_numeric($post_footer_id)):
+		$post_footer = get_post($post_footer_id);
+		if (is_object($post_footer)):
+			echo $post_footer->post_content;
+		else:
+			delete_post_meta($post->ID, '_post_footer_id', get_post_meta($post->ID, '_post_footer_id', true));
+			echo '<!-- this post footer has been removed from the system, and so the association has been deleted -->';
+		endif;
+	else:
+		echo '<!-- there is no wp_post_footer on this post -->';
+	endif;
 }
 
 ?>
