@@ -1,11 +1,7 @@
 <?php
 
-$args = array(
-	'post_type' => 'post-footer',
-	'numberposts' => -1,
-);
+$posts = _post_footer_snippets();
 
-$posts = get_posts($args);
 if (isset($_GET['pfmsg'])):
 ?>
 <div id="message" class="updated fade"><p>Post Footer snippet deleted.</p></div>

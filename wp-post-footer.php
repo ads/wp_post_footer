@@ -25,8 +25,10 @@
 */
 
 add_action('admin_menu', 'post_footer_menus', 10, 1);
+add_action('admin_menu', 'post_footer_meta_box', 11, 1);
 add_action('admin_enqueue_scripts', 'post_footer_scripts', 10, 1);
 add_action('admin_head', 'post_footer_scrub_menus');
+add_action('save_post', 'post_footer_save'); 
 
 function post_footer_menus()
 {
@@ -57,4 +59,80 @@ function post_footer_scripts($hook)
 		wp_enqueue_style( 'thickbox' );
 	endif;
 }
+
+function post_footer_meta_box()
+{
+	if ( current_user_can('delete_others_posts') ):
+		if ( function_exists( 'add_meta_box' )):
+    		add_meta_box( 'post_footer_meta_box', 'Post Footer', 'post_footer_meta_box_content', 'post', 'normal', 'high' );
+		endif;
+	endif;
+}
+
+function post_footer_meta_box_content()
+{
+	if ( isset($_GET['post']) ):
+		$post = $_GET['post'];
+	else:
+		$post = '-'.time();
+	endif;
+
+	$_post_footer_id = get_post_meta($post, '_post_footer_id', true);
+	$snippets = _post_footer_snippets();
+?>
+	<input type="hidden" name="wp_post_footer_nonce" id="wp_post_footer_nonce" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
+	<label for="_post_footer_id">Post Footer snippet:</label>
+	<select name="_post_footer_id" id="post_footer_id">
+		<option value="">&hellip;</option>
+		<?php foreach($snippets as $snippet): 
+			$selected = ($snippet->ID == $_post_footer_id) ? 'selected="selected"' : '';
+		?>
+			<option value="<?php echo $snippet->ID; ?>" <?php echo $selected; ?>><?php echo $snippet->post_title?></option>
+		<?php endforeach; ?>
+	</select>	
+<?php
+}
+
+function _post_footer_snippets()
+{
+	$args = array(
+		'post_type' => 'post-footer',
+		'numberposts' => -1,
+	);
+
+	$posts = get_posts($args);
+	return $posts;
+}
+
+function post_footer_save( $post_id )
+{
+	global $post;
+
+		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], plugin_basename(__FILE__) ) ):
+			return $post_id;  
+		endif;
+
+		if ( !current_user_can( 'edit_post', $post_id ) ):
+			return $post_id;  
+		endif;
+
+		$_post_footer_id = $_POST['_post_footer_id'];
+
+		if ( get_post_meta($post_id, '_post_footer_id') == "" ):
+			add_post_meta($post_id, '_post_footer_id', $_post_footer_id, true);
+		elseif ($_post_footer_id != get_post_meta($post_id, '_post_footer_id', true) ):
+			update_post_meta($post_id, '_post_footer_id', $_post_footer_id);
+		elseif($_post_footer_id == ""):
+			delete_post_meta($post_id, '_post_footer_id', get_post_meta($post_id, '_post_footer_id', true));
+		endif;	
+}
+
+function wp_post_footer()
+{
+	global $post;
+	$post_footer_id = get_post_meta($post->ID, '_post_footer_id', true);
+	$post_footer = get_post($post_footer_id);
+	echo $post_footer->post_content;
+}
+
 ?>

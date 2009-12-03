@@ -1,5 +1,6 @@
 === WP Post Footer ===
-Contributors: xenlab
+Contributors: xenlab,ads
+Donate Link: http://blog.adsdevshop.com/
 Tags: content, posts, css, html, javascript, formatting, style, snippets, code
 Requires at least: 2.8
 Tested up to: 2.9
@@ -15,9 +16,10 @@ Easily create a library of code snippets that can be inserted at the end of blog
 
 1. Download the wp-post-footer.zip file, unzip and upload the whole directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Navigate to the Post Footer Library page. Click Add New Post Footer.
+1. Add this php snippet to the single.php template in your theme: <?php if (function_exists('wp_post_footer')) wp_post_footer; ?>
+1. To create a new Post Footer, navigate to the Post Footer Library page. Click Add New Post Footer.
 1. Title the Post Footer, and Paste HTML, CSS, and/or JavaScript and/or PHP into the body, and click `Save`.
-1. Select the Post Footer snippet from the list provided on the Add New Post screen. Save and publish the post as normal
+1. To associate a Post Footer snippet to a Post, select the Post Footer snippet from the list provided on the Add New Post screen. Save and publish the post as normal
 1. Bask in the glory of your customized blog post!
 
 == Frequently Asked Questions ==
@@ -43,7 +45,7 @@ The project is now hosted on [github.com](http://github.com/ads/wp_post_footer).
 
 == License ==
 
-The WP Post Footer plugin was developed by Eric Marden and James Tryon on behalf of Robert Dempsey and Atlantic Dominion Solutions, LLC and is provided with out warranty under the GPLv2 License. More info and other plugins at: http://xentek.net
+The WP Post Footer plugin was developed by Eric Marden and James Tryon on behalf of Robert Dempsey and Atlantic Dominion Solutions, LLC and is provided with out warranty under the GPLv2 License. More info and other open source goodies at: http://adsdevshop.com/open-source
 
 Copyright 2009 Robert Dempsey
 
