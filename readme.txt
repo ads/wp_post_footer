@@ -1,5 +1,5 @@
 === WP Post Footer ===
-Contributors: xenlab,adsdevshop
+Contributors: xenlab,adsdevshop,easilyamused
 Donate Link: http://blog.adsdevshop.com/
 Tags: content, posts, css, html, javascript, formatting, style, snippets, code
 Requires at least: 2.8
