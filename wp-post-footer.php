@@ -107,7 +107,7 @@ function _post_footer_snippets()
 function post_footer_save( $post_id )
 {
 	global $post;
-	if ($post->post_type == 'post'):
+	if (isset($_POST['_post_footer_id'])):
 		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], 'wp_post_footer_nonce' ) ):
 			return $post_id;  
 		endif;
