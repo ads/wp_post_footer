@@ -6,7 +6,7 @@ $screen_layout_columns = 2;
 if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 
 if ( !empty($_POST ) ) :
-	check_admin_referer($post_footer_form.'-post-footer');	
+	check_admin_referer('wp_post_footer_nonce');	
 	if ($post_footer_form == 'add'):
 		$posta = array(
 			'post_title' => $_POST['post_title'],
@@ -33,7 +33,7 @@ if ( !empty($_POST ) ) :
 	<h2><?php echo esc_html($title); ?></h2>
 	
 	<form name="post" action="" method="post" id="<?php echo $post_footer_form; ?>-wp-post-footer">
-		<?php wp_nonce_field($post_footer_form.'-post-footer'); ?>
+		<?php wp_nonce_field('wp_post_footer_nonce','wp_post_footer_nonce'); ?>
 		<input type="hidden" id="user-id" name="user_ID" value="<?php echo (int) $user_ID ?>" />
 		<input type="hidden" id="hiddenaction" name="action" value="" />
 		<input type="hidden" id="originalaction" name="originalaction" value="" />

@@ -80,7 +80,7 @@ function post_footer_meta_box_content()
 	$_post_footer_id = get_post_meta($post, '_post_footer_id', true);
 	$snippets = _post_footer_snippets();
 ?>
-	<input type="hidden" name="wp_post_footer_nonce" id="wp_post_footer_nonce" value="<?php echo wp_create_nonce( plugin_basename(__FILE__) ); ?>" />
+	<?php wp_nonce_field('wp_post_footer_nonce','wp_post_footer_nonce'); ?>
 	<label for="_post_footer_id">Post Footer snippet:</label>
 	<select name="_post_footer_id" id="post_footer_id">
 		<option value="">Choose&hellip;</option>
@@ -108,7 +108,7 @@ function post_footer_save( $post_id )
 {
 	global $post;
 
-		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], plugin_basename(__FILE__) ) ):
+		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], 'wp_post_footer_nonce' ) ):
 			return $post_id;  
 		endif;
 
