@@ -50,7 +50,7 @@ function post_footer_scrub_menus()
 
 function post_footer_scripts($hook)
 {
-	if ($hook == end(explode('/',dirname(__FILE__))).'/add-wp-post-footer.php'):
+	if ($hook == end(explode('/',dirname(__FILE__))).'/add-wp-post-footer.php' || $hook == end(explode('/',dirname(__FILE__))).'/edit-wp-post-footer.php'):
 		$handles = explode(',','post,editor,media-upload,word-count,thickbox');
 
 		foreach($handles as $handle):

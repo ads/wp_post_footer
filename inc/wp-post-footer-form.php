@@ -17,10 +17,10 @@ if ( !empty($_POST ) ) :
 		);
 		wp_insert_post($posta);
 		$msg = 'Post Footer Snippet Added To The Library!';
-	elseif($post_footer_form = 'edit'):
+	elseif($post_footer_form == 'edit'):
 		$post = get_post($_POST['temp_ID']);
-		$post->post_title = $_POST['post_title'];
-		$post->post_content = $_POST['content'];
+		$post->post_title = stripslashes($_POST['post_title']);
+		$post->post_content = stripslashes($_POST['content']);
 		wp_update_post($post);
 		$msg = 'Post Footer Snippet Updated!';
 	endif;
