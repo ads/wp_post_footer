@@ -1,8 +1,8 @@
 <?php
 $parent_file = 'edit.php';
 $editing = true;
-add_thickbox(); 
 $screen_layout_columns = 2;
+if (function_exists('add_thickbox')) add_thickbox(); 
 if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 
 if ( !empty($_POST ) ) :
@@ -17,6 +17,11 @@ if ( !empty($_POST ) ) :
 		);
 		wp_insert_post($posta);
 		$msg = 'Post Footer Snippet Added To The Library!';
+		unset($post);
+		$post = get_default_post_to_edit();
+		$post->post_type = 'post-footer';
+		$post->post_content = '';
+		$post->post_title = '';
 	elseif($post_footer_form == 'edit'):
 		$post = get_post($_POST['temp_ID']);
 		$post->post_title = stripslashes($_POST['post_title']);
@@ -70,12 +75,13 @@ if ( !empty($_POST ) ) :
 				<div id="post-body-content">
 					<div id="titlediv">
 						<div id="titlewrap">
-							<label class="screen-reader-text" for="title">Title</label>
+							<label class="screen-reader-text" for="title">Title (<?php echo $post->post_title; ?>)</label>
 							<input type="text" name="post_title" size="30" tabindex="1" value="<?php echo esc_attr( htmlspecialchars( $post->post_title ) ); ?>" id="title" autocomplete="off" />
 						</div>
 					</div>
 					
 					<div id="<?php echo user_can_richedit() ? 'postdivrich' : 'postdiv'; ?>" class="postarea">
+						
 						<?php the_editor($post->post_content); ?>
 					
 						<table id="post-status-info" cellspacing="0">
