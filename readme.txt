@@ -16,7 +16,7 @@ Easily create a library of code snippets that can be inserted at the end of blog
 
 1. Download the wp-post-footer.zip file, unzip and upload the whole directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Add this php snippet to the single.php template in your theme: <?php if (function_exists('wp_post_footer')) wp_post_footer; ?>
+1. Add this php snippet to the single.php template in your theme: <?php if (function_exists('wp_post_footer')) wp_post_footer(); ?>
 1. To create a new Post Footer, navigate to the Post Footer Library page. Click Add New Post Footer.
 1. Title the Post Footer, and Paste HTML, CSS, and/or JavaScript and/or PHP into the body, and click `Save`.
 1. To associate a Post Footer snippet to a Post, select the Post Footer snippet from the list provided on the Add New Post screen. Save and publish the post as normal
@@ -41,7 +41,11 @@ The project is now hosted on [github.com](http://github.com/ads/wp_post_footer).
 
 == Screenshots ==
 
-1. Screenshot
+1. Post Footer list in Add/Edit Post screen
+2. Post Footer navigation links in Post menu
+3. Add New Post Footer screen showing Rich Editor and Media Library integration
+4. Add New Post Footer screen
+5. Post Footer Library - A list of Post Footer snippets.
 
 == License ==
 
