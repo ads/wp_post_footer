@@ -6,7 +6,7 @@ $screen_layout_columns = 2;
 if (function_exists('wp_tiny_mce')) wp_tiny_mce();
 
 if ( !empty($_POST ) ) :
-	check_admin_referer('wp_post_footer_nonce');	
+	check_admin_referer('wp_post_footer_nonce','wp_post_footer_nonce');	
 	if ($post_footer_form == 'add'):
 		$posta = array(
 			'post_title' => $_POST['post_title'],

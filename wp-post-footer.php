@@ -107,7 +107,7 @@ function _post_footer_snippets()
 function post_footer_save( $post_id )
 {
 	global $post;
-
+	if ($post->post_type == 'post'):
 		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], 'wp_post_footer_nonce' ) ):
 			return $post_id;  
 		endif;
@@ -124,7 +124,8 @@ function post_footer_save( $post_id )
 			update_post_meta($post_id, '_post_footer_id', $_post_footer_id);
 		elseif($_post_footer_id == ""):
 			delete_post_meta($post_id, '_post_footer_id', get_post_meta($post_id, '_post_footer_id', true));
-		endif;	
+		endif;
+	endif;
 }
 
 function wp_post_footer()
