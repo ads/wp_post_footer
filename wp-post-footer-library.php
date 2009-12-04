@@ -8,7 +8,7 @@ if (isset($_GET['pfmsg'])):
 <?php endif; ?>
 <div class="wrap">
 	<div id="icon-edit" class="icon32"></div>
-	<h2>Post Footer Library <a class="button add-new-h2" href="edit.php?page=wp-post-footer/add-wp-post-footer.php">Add New</a></h2>
+	<h2>Post Footer Library <a class="button add-new-h2" href="edit.php?page=<?php echo end(explode('/',dirname(__FILE__))); ?>/add-wp-post-footer.php">Add New</a></h2>
 	<p>Manage your Post Footer snippets</p>
 	<div class="clear"></div>
 	<table class="widefat post fixed" cellspacing="0">
