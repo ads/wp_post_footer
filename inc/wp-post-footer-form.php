@@ -71,7 +71,7 @@ if ( !empty($_POST ) ) :
 					<div id="titlediv">
 						<div id="titlewrap">
 							<label class="screen-reader-text" for="title">Title</label>
-							<input type="text" name="post_title" size="30" tabindex="1" value="<?php echo esc_attr( $post->post_title ); ?>" id="title" autocomplete="off" />
+							<input type="text" name="post_title" size="30" tabindex="1" value="<?php echo esc_attr( htmlspecialchars( $post->post_title ) ); ?>" id="title" autocomplete="off" />
 						</div>
 					</div>
 					
