@@ -1,7 +1,7 @@
 <?php
 /*
 	Plugin Name:	WP Post Footer Library
-	Version:		1.0
+	Version:		1.0.1
 	Plugin URI:		http://www.adsdevshop.com/open-source/
 	Description:	This plugin allows you to create a library of code snippets and easily include them at the bottom of Blog Posts on your WordPress powered blog.
 	Author:			Atlantic Dominion Solutions
@@ -50,7 +50,7 @@ function post_footer_scrub_menus()
 
 function post_footer_scripts($hook)
 {
-	if ($hook == end(explode('/',dirname(__FILE__))).'/add-wp-post-footer.php' || $hook == end(explode('/',dirname(__FILE__))).'/edit-wp-post-footer.php'):
+	if ($hook == 'wp-post-footer/add-wp-post-footer.php'):
 		$handles = explode(',','post,editor,media-upload,word-count,thickbox');
 
 		foreach($handles as $handle):
@@ -107,7 +107,7 @@ function _post_footer_snippets()
 function post_footer_save( $post_id )
 {
 	global $post;
-	if (isset($_POST['_post_footer_id'])):
+
 		if ( !wp_verify_nonce( $_POST['wp_post_footer_nonce'], 'wp_post_footer_nonce' ) ):
 			return $post_id;  
 		endif;
@@ -124,8 +124,7 @@ function post_footer_save( $post_id )
 			update_post_meta($post_id, '_post_footer_id', $_post_footer_id);
 		elseif($_post_footer_id == ""):
 			delete_post_meta($post_id, '_post_footer_id', get_post_meta($post_id, '_post_footer_id', true));
-		endif;
-	endif;
+		endif;	
 }
 
 function wp_post_footer()
@@ -135,7 +134,9 @@ function wp_post_footer()
 	if (is_numeric($post_footer_id)):
 		$post_footer = get_post($post_footer_id);
 		if (is_object($post_footer)):
+			echo '<div id="wp_post_footer">';
 			echo $post_footer->post_content;
+			echo '</div>';
 		else:
 			delete_post_meta($post->ID, '_post_footer_id', get_post_meta($post->ID, '_post_footer_id', true));
 			echo '<!-- this post footer has been removed from the system, and so the association has been deleted -->';
